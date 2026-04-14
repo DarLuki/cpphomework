@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 struct list{
@@ -83,6 +84,14 @@ void del_list (list *&h, list *&t){
 	}
 }
 
+bool composite(int n){
+	n = abs(n);
+	for (int i = 2; i< pow(n, 0.5) + 1; i++){
+		if (n % i == 0 && n != i) return true;
+	}
+	return false;
+}
+
 int main(){
 	int n;
 	cin >> n;
@@ -93,17 +102,15 @@ int main(){
 		cin >> x;
 		push(head, tail, x);
 	}
-	int last = tail->inf, minel = head->inf;
 	list *p = head;
-	while (p){
-		if ((p->inf)<minel) minel = p->inf;
-		p = p->next;
-	}
-	p = head;
-	while (p){
-		list *ind = find(p, tail, last);
-		insert_after(head, tail, ind->prev, minel);
-		p = ind->next;
+	while (composite(head->inf)==false){
+		list *r = head;
+		head = head->next;
+		head->prev = NULL;
+	        r->next = NULL;
+		r->prev = tail;
+		tail->next = r;
+		tail = r;
 	}
 	print(head, tail);
 }
