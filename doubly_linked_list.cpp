@@ -93,5 +93,17 @@ int main(){
 		cin >> x;
 		push(head, tail, x);
 	}
+	int last = tail->inf, minel = head->inf;
+	list *p = head;
+	while (p){
+		if ((p->inf)<minel) minel = p->inf;
+		p = p->next;
+	}
+	p = head;
+	while (p){
+		list *ind = find(p, tail, last);
+		insert_after(head, tail, ind->prev, minel);
+		p = ind->next;
+	}
 	print(head, tail);
 }
