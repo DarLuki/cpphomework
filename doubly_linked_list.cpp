@@ -84,14 +84,6 @@ void del_list (list *&h, list *&t){
 	}
 }
 
-bool composite(int n){
-	n = abs(n);
-	for (int i = 2; i< pow(n, 0.5) + 1; i++){
-		if (n % i == 0 && n != i) return true;
-	}
-	return false;
-}
-
 int main(){
 	int n;
 	cin >> n;
@@ -102,15 +94,29 @@ int main(){
 		cin >> x;
 		push(head, tail, x);
 	}
-	list *p = head;
-	while (composite(head->inf)==false){
-		list *r = head;
-		head = head->next;
-		head->prev = NULL;
-	        r->next = NULL;
-		r->prev = tail;
-		tail->next = r;
-		tail = r;
+	bool f = true;
+	while (f) {
+		f = false;
+		list *p = head;
+		while (p->next){
+			if (p->inf > p->next->inf){
+				list *p1 = p;
+				list *p2 = p->next;
+				list *prev1 = p1->prev;
+				list *next2 = p2->next;
+				if (prev1) prev1->next = p2;
+				else head = p2;
+				p2->prev = prev1;
+				p2->next = p1;
+				p1->prev = p2;
+				p1->next = next2;
+				if (next2) next2->prev = p1;
+				else tail = p1;
+				f = true;
+				p = p2;
+			}
+			p = p->next;
+		}
 	}
 	print(head, tail);
 }
