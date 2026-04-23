@@ -13,7 +13,10 @@ int main() {
 		cin >> x >> y;
 		if (x > n || y > n) continue;
 		else v[x].push_back(y);
-	}int ver;
-	cin >> ver;
-	cout << v[ver].size() << endl;
+	}int a, b;
+	cin >> a >> b;
+	auto it = find(v[a].begin(), v[a].end(), b);
+	v[a].erase(it);
+	for (int i = 0; i < v[a].size(); i++) cout << v[a][i] << " ";
+	cout << endl;
 }
