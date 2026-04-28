@@ -1,6 +1,5 @@
-#include <iostream>
-#include <queue>
 #include <vector>
+#include <iostream>
 #include <algorithm>
 using namespace std;
 
@@ -13,10 +12,8 @@ int main() {
 		cin >> x >> y;
 		if (x > n || y > n) continue;
 		else v[x].push_back(y);
-	}int a, b;
-	cin >> a >> b;
-	auto it = find(v[a].begin(), v[a].end(), b);
-	v[a].erase(it);
-	for (int i = 0; i < v[a].size(); i++) cout << v[a][i] << " ";
-	cout << endl;
+	}
+	for (int i = 0; i < n; i++){
+		cout << i << " - " << v[i].size() << endl;
+	}
 }
